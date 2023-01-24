@@ -37,8 +37,7 @@ public class Player extends Entity
     }
 
     public void setDefaultValues() 
-    {
-        // test commit
+    {        
         worldX = gp.tileSize * 23; 
         worldY = gp.tileSize * 21; 
         speed = 4; 
