@@ -13,6 +13,7 @@ public class Main
 {
     public static void main(String[] args) 
     {
+        // new branch
         JFrame window = new JFrame();
 
         // lets us close the window properly
