@@ -11,6 +11,7 @@ import javax.swing.JPanel;
 import Entity.Entity;
 import Entity.Player;
 import Tile.TileManager;
+import object.SuperObject;
 
 public class GamePanel extends JPanel implements Runnable 
 {
@@ -30,6 +31,11 @@ public class GamePanel extends JPanel implements Runnable
     public final int worldWidth = tileSize * maxWorldCol; 
     public final int worldHeight = tileSize * maxWorldRow; 
 
+    // GAME STATE
+    public int gameState;
+    public final int playState = 1; 
+    public final int pauseState = 2; 
+
     // FPS 
     int FPS = 60; 
 
@@ -37,10 +43,31 @@ public class GamePanel extends JPanel implements Runnable
     Thread gameThread; 
 
     TileManager tileManager = new TileManager(this); 
-    public Player player = new Player(this, keyH);  
+    public Player player = new Player(this, keyH); 
+    
+    public CollisionChecker collisionChecker = new CollisionChecker(this); 
+
+    AssetSetter assetSetter = new AssetSetter(this, keyH); 
+
+    public SuperObject obj[] = new SuperObject[10]; 
+    public Entity npc[] = new Entity[10];
     
     public ArrayList<Entity> projectileList = new ArrayList<>(); 
     public ArrayList<Entity> entityList = new ArrayList<>(); 
+
+    // SOUND 
+    Sound music = new Sound(); 
+    Sound soundEffects = new Sound(); 
+
+    // UI
+    public UI ui = new UI(this); 
+
+    public void setUpGame()
+    {
+        assetSetter.setObject();
+        assetSetter.setNPC();
+        playMusic(0);
+    }
 
     public GamePanel() 
     { 
@@ -98,6 +125,15 @@ public class GamePanel extends JPanel implements Runnable
     public void update() 
     {
         player.update();   
+
+         // NPC
+         for(int i = 0; i < npc.length; i++)
+         {
+             if(npc[i] != null)
+             {
+                 npc[i].update();
+             }
+         }
         
         for (int i = 0; i < projectileList.size(); i++ ) 
         {
@@ -122,9 +158,56 @@ public class GamePanel extends JPanel implements Runnable
 
         Graphics2D g2 = (Graphics2D)g; 
 
+        // Background TILES
         tileManager.draw(g2);
+
+        // OBJECT
+        for(int i = 0; i < obj.length; i++)
+        {
+            if(obj[i] != null)
+            {
+                obj[i].draw(g2, this);
+            }
+        }
+
+        // NPC
+        for(int i = 0; i < npc.length; i++)
+        {
+            if(npc[i] != null)
+            {
+                npc[i].draw(g2);
+            }
+        }
+
+        // PLAYER 
         player.draw(g2); 
 
+        ui.draw(g2);
+
         g2.dispose(); 
-    }    
+    }   
+    
+    public void playMusic(int i)
+    {
+        music.setFile(i);
+        music.play();
+        music.loop();
+    }
+
+    public void stopMusic()
+    {        
+        music.stop();
+    }
+
+    public void playSE(int i)
+    {
+        soundEffects.setFile(i);
+        soundEffects.play();
+    }
+
+    public void stopSE(int i)
+    {
+        soundEffects.setFile(i);
+        soundEffects.stop();
+    }
 }

@@ -2,6 +2,8 @@ package object;
 
 import Entity.Projectile;
 import Main.GamePanel;
+import Main.KeyHandler;
+
 import javax.imageio.ImageIO;
 import java.io.IOException;
 
@@ -9,9 +11,9 @@ public class OBJ_Fireball extends Projectile
 {
     GamePanel gamePanel; 
 
-    public OBJ_Fireball(GamePanel gp) 
+    public OBJ_Fireball(GamePanel gp, KeyHandler kh) 
     {
-        super(gp);
+        super(gp, kh);
 
         this.gamePanel = gp; 
 
