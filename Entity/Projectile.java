@@ -1,14 +1,15 @@
 package Entity;
 
 import Main.GamePanel;
+import Main.KeyHandler;
 
 public class Projectile extends Entity 
 {
     Entity user; 
 
-    public Projectile(GamePanel gp) 
+    public Projectile(GamePanel gp, KeyHandler kh) 
     {
-        super(gp); 
+        super(gp, kh); 
     }
 
     public void set(int x, int y, String direction, boolean alive, Entity user) 

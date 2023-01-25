@@ -3,51 +3,60 @@ package Entity;
 import java.util.Random;
 
 import Main.GamePanel;
+import Main.KeyHandler;
 
 public class NPC_OldMan extends Entity 
 {
 
-    public NPC_OldMan(GamePanel gp) 
+    public NPC_OldMan(GamePanel gp, KeyHandler kh) 
     {
-        super(gp);
+        super(gp, kh);
         
         this.direction = "down"; 
         this.speed = 1; 
+
+        getImage();
     }
 
     public void getImage() 
     {
-        up1 = setup("/npc/oldman_up_1"); 
-        up2 = setup("/npc/oldman_up_2"); 
-        down1 = setup("/npc/oldman_down_1"); 
-        down2 = setup("/npc/oldman_down_2"); 
-        left1 = setup("/npc/oldman_left_1"); 
-        left2 = setup("/npc/oldman_left_2"); 
-        right1 = setup("/npc/oldman_right_1"); 
-        right2 = setup("/npc/oldman_right_2"); 
+        up1 = setup("/Res/npc/oldman_up_1"); 
+        up2 = setup("/Res/npc/oldman_up_2"); 
+        down1 = setup("/Res/npc/oldman_down_1"); 
+        down2 = setup("/Res/npc/oldman_down_2"); 
+        left1 = setup("/Res/npc/oldman_left_1"); 
+        left2 = setup("/Res/npc/oldman_left_2"); 
+        right1 = setup("/Res/npc/oldman_right_1"); 
+        right2 = setup("/Res/npc/oldman_right_2"); 
     }
 
     public void setAction() 
     {
-        Random random = new Random(); 
-        int i = random.nextInt(100)+1; 
+        actionLockCounter++; 
 
-        if (i <= 25)
+        if(actionLockCounter == 120)
         {
-            direction = "up"; 
-        }
-        if (i > 25 && i <= 50)
-        {
-            direction = "down"; 
-        }
-        if (i > 50 && i <= 75)
-        {
-            direction = "left"; 
-        }
-        if (i > 75 && i <= 100)
-        {
-            direction = "right"; 
-        }
-    }
+            Random random = new Random(); 
+            int i = random.nextInt(100)+1; 
     
+            if (i <= 25)
+            {
+                direction = "up"; 
+            }
+            if (i > 25 && i <= 50)
+            {
+                direction = "down"; 
+            }
+            if (i > 50 && i <= 75)
+            {
+                direction = "left"; 
+            }
+            if (i > 75 && i <= 100)
+            {
+                direction = "right"; 
+            }
+
+            actionLockCounter = 0; 
+        }       
+    }    
 }

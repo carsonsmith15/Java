@@ -8,6 +8,7 @@ import java.io.IOException;
 import javax.imageio.ImageIO;
 
 import Main.GamePanel;
+import Main.KeyHandler;
 
 public class Fireball extends Entity
 {
@@ -15,9 +16,9 @@ public class Fireball extends Entity
     BufferedImage fireballImage; 
     boolean isVisible; 
 
-    public Fireball(GamePanel gp) 
+    public Fireball(GamePanel gp, KeyHandler kh) 
     {
-        super(gp); 
+        super(gp, kh); 
 
         this.gamePanel = gp; 
         this.isVisible = false; 
